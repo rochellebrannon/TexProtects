@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--
   Copyright 2011 Google Inc. All Rights Reserved.
@@ -14,6 +15,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+  <style>
+    #map-canvas { width:500px; height:400px; }
+    .layer-wizard-search-label { font-family: sans-serif };
+  </style>
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -189,7 +194,7 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-        var layer = new google.maps.FusionTablesLayer({
+        layer = new google.maps.FusionTablesLayer({
           query: {
             select: 'geometry',
             from: '1_YVEuVkJ6EwXzvkAvRgArDuikCf1nPdCCmXMZFWS'
@@ -273,6 +278,21 @@
         legendWrapper.removeChild(legend);
         legendContent(legendWrapper, column);
       }
+		
+		 function changeMap_0() {
+      var whereClause;
+      var searchString = document.getElementById('search-string_0').value.replace(/'/g, "\\'");
+      if (searchString != '--Select--') {
+        whereClause = "'Corresponding Counties' CONTAINS IGNORING CASE '" + searchString + "'";
+      }
+      layer.setOptions({
+        query: {
+          select: "col7>>1",
+          from: "1_YVEuVkJ6EwXzvkAvRgArDuikCf1nPdCCmXMZFWS",
+          where: whereClause
+        }
+      });
+    }
 
       // Generate the content for the legend
       function legendContent(legendWrapper, column) {
@@ -310,6 +330,13 @@
 
   <body>
     <div id="map-canvas"></div>
+	  <div style="margin-top: 10px;">
+      <label class="layer-wizard-search-label">
+        Corresponding Counties
+        <input type="text" id="search-string_0">
+        <input type="button" onclick="changeMap_0()" value="Search">
+      </label> 
+    </div>
     <select id="selector"></select>
   </body>
 </html>
