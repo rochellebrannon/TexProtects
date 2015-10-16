@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <!--
   Copyright 2011 Google Inc. All Rights Reserved.
@@ -16,6 +17,11 @@
   limitations under the License.
 -->
   <style>
+	   #mapbox {
+        margin: auto;
+        width: 60%;
+        padding: 10px;
+    }
     #map-canvas { width:500px; height:400px; }
     .layer-wizard-search-label { font-family: sans-serif };
   </style>
@@ -190,7 +196,7 @@
       function initialize() {
         var map = new google.maps.Map(document.getElementById('map-canvas'), {
           center: new google.maps.LatLng(31.1, -98.5),
-          zoom: 5,
+          zoom: 6,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
@@ -328,15 +334,18 @@
     </script>
   </head>
 
-  <body>
-    <div id="map-canvas"></div>
-	  <div style="margin-top: 10px;">
-      <label class="layer-wizard-search-label">
-        Corresponding Counties
-        <input type="text" id="search-string_0">
-        <input type="button" onclick="changeMap_0()" value="Search">
-      </label> 
+ <body>
+    <div id="mapbox">
+        <div id="map-canvas" style="height:900px;
+    width:89%;"></div>
+        <div style="margin-top: 10px;">
+            <label class="layer-wizard-search-label">
+                Corresponding Counties
+                <input type="text" id="search-string_0">
+                <input type="button" onclick="addfilter()" value="Search">
+            </label>
+        </div>
+        <select id="selector"></select>
     </div>
-    <select id="selector"></select>
-  </body>
+</body>
 </html>
